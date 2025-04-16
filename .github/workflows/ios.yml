@@ -1,44 +1,111 @@
-name: iOS starter workflow
+name: i` or `MyApp.xcworkspace`).
+2. **Update Workflow**:
+OS starter workflow
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "   - Modify the `build` and `test` steps to specify themain correct" path ]
+ for  the pull X_requestcode:
+ project    or branches workspace:.
+ [ "main" ]
 
 jobs:
-  build:
-    name: Build and Test default scheme using any available iPhone simulator
-    runs-on: macos-latest
+    - build Option:
+ally   , name add: a Build step and to Test verify default the scheme presence using of the project any file available.
+
+ i###Phone Updated simulator Workflow
+ Example   
+ runs-on: macHere is a modified version of the relevant sections of theos-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses workflow:
+
+```yaml
+- name: Build
+  env:
+    scheme: actions/checkout@v4
+
+      - name: Validate Project: ${{ 'default' or }}
+ Workspace   
+ platform       : run $:{{ |
+ '         i ifOS [ ! Simulator' }}
+  run: |
+    # Detect the iPhone simulator
+    device -f *.xcodeproj ] && [ ! -f *.xcworkspace ]; then
+            echo "No Xcode project or workspace found in=`xcrun xctrace list devices 2>&1 | grep -oE the repository root."
+            exit 1
+          fi
+
       - name: Set Default Scheme
         run: |
-          scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
-          echo $default | cat >default
-          echo Using default scheme: $default
+ 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' |          scheme_list=$(xcodebuild -list -json || echo sed -e "s/ Simulator$//"`
+    if [ $scheme = default ]; "{}")
+          if [ "$scheme_list" == "{}" ]; then then scheme=$(cat default); fi
+
+    # Specify the correct
+            echo "Error: No schemes found or invalid path to the project or workspace
+    if [ - project/workspace."
+            exit 1
+          fi
+          default=$(echo $scheme_list | ruby -ef "./MyApp.xcodeproj" ]; then
+      filetype_parameter=" "require 'json'; puts JSON.parse(STDIN.gets)['project']['project" && file_to_build="./MyApp.xcodeproj"
+    elif [targets -'][f0 "./]"My App2.x>/cdevworkspace/null" || ]; echo then "
+default     ")
+ file         type echo_parameter="workspace $default >default
+          echo "Using default scheme" && file_to_build="./MyApp.x: $default"
+
       - name: Build
         env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
+         cworkspace"
+    else
+      echo "No valid Xcode project/workspace scheme: ${{ 'default' }}
+          platform: found!" && exit 1
+    fi
+
+    xcodebuild build ${{ 'iOS Simulator' }}
         run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
-      - name: Test
+          device=$(-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,namexcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*=$device"
+
+- name: Test
+  env:
+    scheme: ${{ '?[^\(]+' | head -1 | sed -e "s/ Simulator$//")
+          scheme=$(cat default)
+         default' }}
+    platform: ${{ 'iOS Simulator' }}
+  if [ -f *.xcworkspace ]; run: |
+    # Detect the iPhone simulator
+    device=` then
+            filetype_parameter="workspace"
+            file_to_build=$(ls *.xcworkspace)
+          elifxcrun xctrace list devices 2>&1 | grep -oE 'iPhone.* [ -f *.xcodeproj ]; then
+            filetype_parameter="project"
+            file_to_build=$(ls *.?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -excodeproj)
+          else
+            echo "No valid Xcode " projects or/ workspace Simulator found$."
+//           "`
+ exit     if [ $scheme = default ]; then scheme=$(cat default); fi
+
+    # Specify the correct1
+          fi
+          xcodebuild build-for-testing -scheme path to the project or workspace
+    if [ - "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+
+f      "./MyApp.xcodeproj" ]; then
+      filetype_parameter=" - name: Test
         env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
-        run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          scheme: $project" && file_to_build="./MyApp.xcodeproj"
+    elif [{{ 'default' }}
+          platform: ${{ 'iOS Simulator' -f "./MyApp.xcworkspace" ]; then
+      filetype_parameter }}
+       =" runworkspace:" |
+ &&          file device_to=$(_buildx="./crMyunApp x.xctrace listcworkspace"
+    else
+      echo "No valid Xcode project/work devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -space found!" && exit 1
+    fi
+
+    xcodebuild test1-with |out sed-building - -escheme " "$s/ Simulator$//")
+          scheme=$(catscheme" -"$filetype_parameter default)
+          if [ -f *.xcworkspace ]; then
+           " "$file_to_build" -destination "platform=$ filetype_parameter="workspace"
+            fileplatform,name=$device"
